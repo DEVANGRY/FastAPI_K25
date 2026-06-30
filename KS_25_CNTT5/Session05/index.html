@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="vi">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Todo List App</title>
+        <link rel="stylesheet" href="./style.css" />
+    </head>
+    <body>
+        <div class="app-container">
+            <header class="app-header">
+                <h1>Todo List</h1>
+                <p>Quản lý công việc hằng ngày</p>
+            </header>
+
+            <section class="todo-card">
+                <form id="todoForm" class="todo-form">
+                    <input
+                        type="text"
+                        id="todoInput"
+                        placeholder="Nhập công việc mới..."
+                        autocomplete="off"
+                    />
+                    <button type="submit">Thêm</button>
+                </form>
+
+                <div class="toolbar">
+                    <input
+                        type="text"
+                        id="searchInput"
+                        placeholder="Tìm kiếm công việc..."
+                    />
+
+                    <select id="filterStatus">
+                        <option value="ALL">Tất cả</option>
+                        <option value="TODO">Chưa hoàn thành</option>
+                        <option value="DONE">Đã hoàn thành</option>
+                    </select>
+                </div>
+
+                <div id="loading" class="loading hidden">
+                    Đang tải dữ liệu...
+                </div>
+
+                <div id="errorBox" class="error hidden"></div>
+
+                <ul id="todoList" class="todo-list"></ul>
+
+                <div id="emptyState" class="empty hidden">
+                    Không có công việc nào.
+                </div>
+            </section>
+        </div>
+
+        <script src="./script.js"></script>
+    </body>
+</html>
