@@ -16,7 +16,12 @@ class AccountResponse(BaseModel):
     role : str
 
 
-list_account = [{"user_name":"123" , "password":"1234" , "role" : "admin"}]
+list_account = [{"user_name":"tuan123" , "password":"1234" , "role" : "admin" , "phone" : None}]
+
+@app.get("/data",response_model_exclude_unset=True,response_model=list[AccountCreate])
+def get_data ():
+   return list_account
+
 @app.post("/register", response_model_exclude_unset=True , status_code=status.HTTP_201_CREATED)
 def handle_register (account_new : AccountCreate) :
     list_account.append(account_new.model_dump())
@@ -47,30 +52,30 @@ def create_response(
  )
 
 # Chốt 1: Bắt lỗi validation (sai định dạng, thiếu field)
-@app.exception_handler(RequestValidationError)
-def validation_exception_handler(request: Request, exc: RequestValidationError):
-   return create_response(
-   status_code=422,
-   message="Dữ liệu gửi lên không hợp lệ",
-   errors=exc.errors(),
-   path=request.url.path
- )
+# @app.exception_handler(RequestValidationError)
+# def validation_exception_handler(request: Request, exc: RequestValidationError):
+#    return create_response(
+#    status_code=422,
+#    message="Dữ liệu gửi lên không hợp lệ",
+#    errors=exc.errors(),
+#    path=request.url.path
+#  )
 
-# Chốt 2: Bắt lỗi logic nghiệp vụ (raise HTTPException)
-@app.exception_handler(HTTPException)
-def http_exception_handler(request: Request, exc: HTTPException):
-   return create_response(
-     status_code=exc.status_code,
-     message=exc.detail,
-     path=request.url.path
- )
+# # Chốt 2: Bắt lỗi logic nghiệp vụ (raise HTTPException)
+# @app.exception_handler(HTTPException)
+# def http_exception_handler(request: Request, exc: HTTPException):
+#    return create_response(
+#      status_code=exc.status_code,
+#      message=exc.detail,
+#      path=request.url.path
+#  )
 
-# Chốt 3: "Hố đen" nuốt mọi lỗi hệ thống chưa lường trước
-@app.exception_handler(Exception)
-def global_exception_handler(request: Request, exc: Exception):
-   print(f"[INTERNAL ERROR] Path: {request.url.path} | {str(exc)}")
-   return create_response(
-   status_code=500,
-   message="Hệ thống gặp sự cố. Vui lòng thử lại sau.",
-   path=request.url.path
- )
+# # Chốt 3: "Hố đen" nuốt mọi lỗi hệ thống chưa lường trước
+# @app.exception_handler(Exception)
+# def global_exception_handler(request: Request, exc: Exception):
+#    print(f"[INTERNAL ERROR] Path: {request.url.path} | {str(exc)}")
+#    return create_response(
+#    status_code=500,
+#    message="Hệ thống gặp sự cố. Vui lòng thử lại sau.",
+#    path=request.url.path
+#  )
