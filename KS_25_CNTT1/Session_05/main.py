@@ -1,5 +1,8 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException , status , Request
 from pydantic import BaseModel , Field
+from fastapi.responses import JSONResponse
+from fastapi.exceptions import RequestValidationError
+
 
 # Làm một Project API để quản lý list công việc hàng ngày 
 list_todo_do = [
@@ -21,11 +24,23 @@ list_todo_do = [
 
 app = FastAPI()
 
+@app.exception_handler(RequestValidationError)
+def validation_exception_handler(request: Request , exc : RequestValidationError):
+    return JSONResponse(
+        status_code = status.HTTP_422_UNPROCESSABLE_CONTENT,
+        content={
+            "status" : status.HTTP_422_UNPROCESSABLE_CONTENT,
+            "error" : exc.errors()
+        }
+    )
+
+
 # 1.Xem danh sách công việc : GET
-@app.get("/todos",tags=["Todos"] , status_code= 200)
+@app.get("/todos",tags=["Todos"] , status_code= status.HTTP_201_CREATED)
 async def get_all_data():
     """Đây là API dùng để lấy toàn bộ dữ liệu từ DATABASE"""
-    return {"message" : "Lấy dữ liệu công việc thành công" , "data" : list_todo_do , "status_code" : 200}
+    data = {"message" : "Lấy dữ liệu công việc thành công" , "data" : list_todo_do , "status_code" : 200}
+    return JSONResponse(status_code= status.HTTP_200_OK , content=data)
 
 # 2.Xem chi tiết công việc theo ID : GET
 @app.get("/todos/{todo_id}", tags=["Todos"] , status_code=200)
@@ -44,7 +59,7 @@ class TodoCreate(BaseModel):
 # 3.Thêm Công việc : POST
 @app.post("/todos",tags=["Todos"])
 async def create_todo(new_todo : TodoCreate):
-    list_todo_do.append(new_todo)
+    list_todo_do.append(new_todo.model_dump())
     return {"message" : "Thêm công việc thành công" , "data" : new_todo}
 
 # 4.Cập Nhật Thông tin Công Việc : 
