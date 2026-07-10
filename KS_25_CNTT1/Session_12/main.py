@@ -2,7 +2,7 @@ from fastapi import FastAPI , Depends , HTTPException , status
 from database import Base , engine , get_database
 import models
 from sqlalchemy.orm import Session
-from schemas import CreateAccountRequest , CreateAccountResponse , GetAllAccountResponse , UpdateAccountRequest , UpdateAccountResponse , DeleteAccountResponse
+from schemas import CreateAccountRequest , CreateAccountResponse , GetAllAccountResponse , UpdateAccountRequest , UpdateAccountResponse , DeleteAccountResponse , UpdateAccountV2Request , UpdateAccountV2Response
 import account_service
 
 # Để tự động tạo các bảng trong database nếu chưa tồn tại
@@ -35,9 +35,18 @@ def handle_update_account(account_id : int , account_update : UpdateAccountReque
     return {"message" : "Cập Nhật Thành công" , "data" : account_update_db}
 
 # Code API để xóa account từ Database
-@app.put("/account_user/{account_id}",status_code=status.HTTP_204_NO_CONTENT)
+@app.delete("/account_user/{account_id}",status_code=status.HTTP_204_NO_CONTENT)
 def handle_delete_account(account_id : int , db : Session = Depends(get_database)):
     is_delete_account = account_service.delete_account_service(db=db , account_id=account_id)
     if not is_delete_account:
         raise HTTPException(status_code=404 ,detail="Không tìm thấy ID")
     return 
+
+
+# Code API : update - các trường bất kỳ
+@app.patch("/account_user/{account_id}" , status_code=status.HTTP_200_OK , response_model=UpdateAccountV2Response)
+def handle_update_acc_v2 (account_id : int , account_update :UpdateAccountV2Request , db : Session = Depends(get_database)):
+    account_update_db = account_service.handle_update_account_v2_service(db=db , account_id=account_id, account_update=account_update)
+    if not account_update_db:
+        raise HTTPException(status_code=404 , detail="Không tìm thấy ID cần cập nhật")
+    return {"message" : "Cập nhật thành công" , "data" : account_update_db}

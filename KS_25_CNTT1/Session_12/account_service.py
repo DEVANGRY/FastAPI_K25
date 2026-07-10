@@ -1,5 +1,5 @@
 # Tạo các hàm để xử lý logic trực tiếp với DATABASE
-from schemas import CreateAccountRequest
+from schemas import CreateAccountRequest , UpdateAccountV2Request
 from sqlalchemy.orm import Session
 from models import AccountUserModel
 
@@ -46,3 +46,21 @@ def delete_account_service (account_id : int , db : Session):
         db.commit()
         return True
     return False
+
+def handle_update_account_v2_service(account_id : int , account_update :UpdateAccountV2Request , db : Session):
+    # Tìm kiếm có đối tượng trong DATABASE
+    find_account_db = db.query(AccountUserModel).filter(AccountUserModel.id == account_id).first()
+    if find_account_db:
+        # ép kiểu find_account_db về dict 
+        account_update_dict = account_update.model_dump(exclude_unset=True)
+        for key,value in account_update_dict.items():
+            setattr(find_account_db,key,value)
+        db.commit()
+        db.refresh(find_account_db)
+
+    return find_account_db
+
+# Sắp xếp
+def handle_sort_by_id(db:Session) :
+
+    list_account = db.query(AccountUserModel).order_by(AccountUserModel.id.desc()).all()

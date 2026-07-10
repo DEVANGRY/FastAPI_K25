@@ -36,3 +36,13 @@ class UpdateAccountResponse(BaseModel):
 
 class DeleteAccountResponse(BaseModel):
     message : str
+
+class UpdateAccountV2Request(BaseModel):
+    account : str | None = None
+    password : str | None = None
+    email : str | None = None
+    is_active : bool | None = None
+
+class UpdateAccountV2Response(BaseModel):
+    message : str
+    data : AccountResponse
