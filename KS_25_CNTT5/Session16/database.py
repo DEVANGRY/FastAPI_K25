@@ -2,7 +2,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker , declarative_base
 
 # Bước 1 : Tạo một URL kết nối đến Database 
-SQLAlCHEMY_DATABASE_URL = "mysql+pymysql://root:123456@localhost:3306/db_game_lol"
+SQLAlCHEMY_DATABASE_URL = "mysql+pymysql://root:123456@localhost:3306/crm_lms"
 
 # Bước 2 : Tạo một engine cấu hình kết nối toàn bộ SQLAlCHEMY
 engine = create_engine(SQLAlCHEMY_DATABASE_URL)
