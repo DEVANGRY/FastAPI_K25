@@ -18,3 +18,22 @@
 # Bảng Course - Enrollment : 1 - N
 # Bảng User - Course : N - N
 
+# Xây dựng API dùng để quản Lý dự án cá nhân của User 
+
+# CRUD 
+# Read : 
+# lấy toàn bộ dự án , phân trang 
+# lấy dự án theo ID người dùng 
+
+# Create : 
+# Tạo dự án theo ID người dùng 
+# Tạo dự án băng role admin 
+
+# Update : (PUT và Patch)
+# Cập nhật dự án theo ID người dùng 
+# Cập Nhật dự án băng role admin 
+
+# Delete : 
+# Xóa dự án theo ID người dùng , và phải truyền thêm ID dự án
+# Xóa toàn bộ dự án của người dùng muốn xóa 
+
