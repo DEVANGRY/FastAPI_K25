@@ -1,5 +1,6 @@
 from sqlalchemy import Table, Column , Integer , ForeignKey
 from database import Base
+
 # Cách 1 : tạo bảng trung gian cho mối quan hệ thể hiện nhiều nhiều 
 # enrollment_table = Table(
 #     "enrollment",

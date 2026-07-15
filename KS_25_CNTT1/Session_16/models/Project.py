@@ -11,5 +11,6 @@ class ProjectModel(Base):
     technology  = Column(String(70) , nullable=False , unique=True)
     day = Column(Integer)
     student_id = Column(Integer , ForeignKey("student.id"))
+    
     # Tạo cầu nối đên bảng Student
     student = relationship("StudentModel",back_populates="projects")

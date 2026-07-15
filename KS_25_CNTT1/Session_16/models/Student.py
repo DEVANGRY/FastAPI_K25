@@ -16,5 +16,5 @@ class StudentModel(Base):
     # Tạo cầu nối đến bảng project 
     projects = relationship("ProjectModel" , back_populates="student")
 
-    # Tạo cầu nối đên enrollment
+    # Tạo cầu nối đến enrollment
     courses = relationship("CourseModel", secondary="enrollment" , back_populates="students")
