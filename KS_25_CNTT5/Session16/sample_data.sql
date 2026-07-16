@@ -75,16 +75,3 @@ INSERT INTO enrollment (user_id, course_id) VALUES
 -- Hoang Thi Lan học React, Machine Learning
 (5, 3),
 (5, 4);
-
--- ============================================================
--- KIỂM TRA DỮ LIỆU
--- ============================================================
-SELECT 'user'        AS table_name, COUNT(*) AS total FROM user
-UNION ALL
-SELECT 'user_info',                 COUNT(*)           FROM user_info
-UNION ALL
-SELECT 'course',                    COUNT(*)           FROM course
-UNION ALL
-SELECT 'project',                   COUNT(*)           FROM project
-UNION ALL
-SELECT 'enrollment',                COUNT(*)           FROM enrollment;

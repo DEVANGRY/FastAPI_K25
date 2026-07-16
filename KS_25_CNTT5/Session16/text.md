@@ -18,3 +18,23 @@
 # Bảng Course - Enrollment : 1 - N
 # Bảng User - Course : N - N
 
+# API : bảng dự án cá nhân 
+# CRUD 
+
+# Read : 
+# API : Lấy thông tin tất cả dự án của user 
+# API : Lấy thông tin chi tiết dự án của từng người theo ID_User 
+# API : Lấy thông tin chi tiết dự án theo ID_project 
+
+# Delete : 
+# API : Xóa dự án theo ID user 
+# API : Xóa dự án theo ID dự án 
+# API : Xóa tất cả dự án 
+
+# Create : 
+# API : Thêm dự án theo ID user 
+
+# Update : PUT , PATCH 
+# API : Cập nhật dự theo ID dự án 
+# API : Cập nhật dự theo ID người dùng 
+
