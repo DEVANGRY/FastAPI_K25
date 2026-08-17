@@ -1,4 +1,5 @@
 import bcrypt
+from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 
 # Hàm dùng để chuyển chuỗi mật khẩu => hash (Băm)
 def handle_convert_hash_password(raw_password : str) -> str:
