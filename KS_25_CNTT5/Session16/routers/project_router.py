@@ -6,7 +6,6 @@ from Schemas import project_schema
 #  Tạo bộ định tuyến 
 router_project = APIRouter(prefix="/projects",tags=["Project"])
 
-
 # API lấy dữ liệu 
 @router_project.get("/",response_model=list[project_schema.ProjectResponse] ,status_code=status.HTTP_200_OK)
 def get_all_project (db : Session = Depends(handle_connect_DB)):

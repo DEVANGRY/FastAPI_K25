@@ -12,7 +12,6 @@ def hash_password(password : str) -> str :
 def check_password (password : str , hash_password : str) -> bool :
     return bcrypt.checkpw(password.encode() , hash_password.encode())
 
-
 hash_01 = hash_password("12341asas")
 password = "12341asas"
 
